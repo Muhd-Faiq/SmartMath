@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "650141615614",
+    "project_id": "smartmathturtledevs",
+    "storage_bucket": "smartmathturtledevs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650141615614:android:a157a586f8af53cf7fecaf",
+        "android_client_info": {
+          "package_name": "com.example.smartmath"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650141615614-34rk83ku99ncd3l18spor2ics9dnj8dj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcpJMBi_HvmOuUR6fGgvM_-5cplKSM-VQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650141615614-34rk83ku99ncd3l18spor2ics9dnj8dj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

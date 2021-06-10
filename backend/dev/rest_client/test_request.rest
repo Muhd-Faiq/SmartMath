@@ -14,7 +14,7 @@
 GET {{baseUrl}}/user
 
 ###  Getting a user of given id
-GET {{baseUrl}}/user/WyxCGy31TjKAbdGjHle3
+GET {{baseUrl}}/user/ToS1eqpANIX8vYHrUc2V
 
 ###  Create a new user
 POST {{baseUrl}}/user
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
     "name": "Amir",
-    "email" : "amir@gmail.com",
+    "login" : "amir@gmail.com",
     "password":"amir1234"
 }
 
@@ -44,4 +44,4 @@ Content-Type: application/json
 }
 
 ### Deleting a given user
-DELETE {{baseUrl}}/user/7q4oSLLSKt3NiGh7v5a2
+DELETE {{baseUrl}}/user/VjeS8LtZAuhYPTKORVh4
