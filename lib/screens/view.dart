@@ -23,8 +23,12 @@ class View extends StatelessWidget {
   Widget _baseBuilder(BuildContext context, Viewmodel viewmodel, Widget child) {
     if (viewmodel.busy) {
       if (_progressBuilder != null) return _progressBuilder(context, viewmodel);
-      return Center(
-        child: Scaffold(body: Center(child: CircularProgressIndicator())),
+      return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Center(
+          child: Scaffold(body: Center(child: CircularProgressIndicator())),
+        ),
       );
     }
 

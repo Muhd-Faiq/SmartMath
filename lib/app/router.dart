@@ -14,8 +14,12 @@ Route<dynamic> createRoute(settings) {
     case '/register':
       return RegisterScreen.route();
 
+    // case '/main':
+    //   return MainScreen.route();
     case '/main':
-      return MainScreen.route();
+      return MaterialPageRoute(
+        builder: (context) => MainScreen(settings.arguments),
+      );
   }
   return null;
 }

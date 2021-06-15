@@ -4,8 +4,13 @@ import '../../models/user.dart';
 import '../viewmodel.dart';
 
 class MainViewmodel extends Viewmodel {
+  MainViewmodel(User tempuser) {
+    _user = tempuser;
+  }
   AuthService get _service => dependency();
   User _user = User();
+  // User _tempuser;
+
   bool _showPassword = false;
   bool _showErrorMessage = false;
 
@@ -42,11 +47,34 @@ class MainViewmodel extends Viewmodel {
     turnIdle();
   }
 
+  get name => _user.name;
+  set name(value) {
+    turnBusy();
+    _showErrorMessage = false;
+    _user.name = value;
+    turnIdle();
+  }
+
   Future<User> authenticate() async {
     turnBusy();
     final User _user =
         await _service.authenticate(login: username, password: password);
     if (_user == null) _showErrorMessage = true;
+    turnIdle();
+    return _user;
+  }
+
+  Future<User> updateUser() async {
+    turnBusy();
+    final result = await _service.updateUser(
+      user: User(
+        id: user.id,
+        login: user.login,
+        name: user.name,
+        password: user.password,
+      ),
+    );
+    if (result == null) _showErrorMessage = true;
     turnIdle();
     return _user;
   }

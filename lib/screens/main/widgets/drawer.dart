@@ -5,6 +5,8 @@ import '../../view.dart';
 import '../main_viewmodel.dart';
 
 class DrawerCustom extends StatelessWidget {
+  DrawerCustom({state}) : _state = state;
+  final _state;
   void _onLogin(BuildContext context, MainViewmodel viewmodel) async {
     final User _user = await viewmodel.authenticate();
 
@@ -20,7 +22,7 @@ class DrawerCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return View(
-      viewmodel: MainViewmodel(),
+      viewmodel: MainViewmodel(User.copy(_state.loguser)),
       builder: (context, viewmodel, _) => Drawer(
         child: Container(
           color: Colors.red,
