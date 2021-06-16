@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartmath/screens/addactivity/addactivity_screen.dart';
 import 'package:smartmath/screens/main/main_screen.dart';
 import 'package:smartmath/screens/register/register_screen.dart';
 
@@ -14,11 +15,14 @@ Route<dynamic> createRoute(settings) {
     case '/register':
       return RegisterScreen.route();
 
-    // case '/main':
-    //   return MainScreen.route();
     case '/main':
       return MaterialPageRoute(
         builder: (context) => MainScreen(settings.arguments),
+      );
+
+    case '/addactivity':
+      return MaterialPageRoute(
+        builder: (context) => AddactivityScreen(settings.arguments),
       );
   }
   return null;

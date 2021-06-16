@@ -35,6 +35,51 @@ class MenuWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  if (_state.loguser.role == 'Teacher')
+                    Column(
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                          ),
+                          child: InkWell(
+                            splashColor: Colors.green, // splash color
+                            onTap: () {
+                              Navigator.pushNamed(context, '/addactivity',
+                                  arguments: _state.loguser);
+                              _state.showdrawer = false;
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.notifications_rounded,
+                                  size: 45,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Add Activity",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  SizedBox(
+                    width: 20,
+                  ),
                   Column(
                     children: [
                       Container(

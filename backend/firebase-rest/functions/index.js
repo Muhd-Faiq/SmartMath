@@ -9,10 +9,12 @@ const express = require("express")
 const app = express();
 const usersRouter = require('./api/controllers/users_controller')
 const countersRouter = require('./api/controllers/counters_controller')
+const activityRouter = require('./api/controllers/activity_controller')
 
 app.use(express.json())
 app.use('/users', usersRouter)
 app.use('/counters', countersRouter)
+app.use('/activity', activityRouter)
 
 
 // To handle "Function Timeout" exception
