@@ -72,6 +72,7 @@ class MainViewmodel extends Viewmodel {
         login: user.login,
         name: user.name,
         password: user.password,
+        role: user.role == 'Teacher' ? 'Teacher' : 'Student',
       ),
     );
     if (result == null) _showErrorMessage = true;

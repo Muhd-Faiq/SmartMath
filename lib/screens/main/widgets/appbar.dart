@@ -37,7 +37,10 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
-        IconButton(icon: Icon(Icons.login), onPressed: () {})
+        IconButton(icon: Icon(Icons.login), onPressed: () {
+          _state.loguser = null;
+          Navigator.pop(context);
+        })
       ],
     );
   }
