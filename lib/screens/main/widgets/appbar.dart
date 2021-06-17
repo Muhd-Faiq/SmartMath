@@ -5,6 +5,9 @@ import '../../view.dart';
 import '../main_viewmodel.dart';
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
+  Appbar({state}) : _state = state;
+  final _state;
+
   @override
   Size get preferredSize => const Size.fromHeight(60);
 
@@ -22,7 +25,21 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar();
+    //return AppBar();
+    return AppBar(
+      leading: CircleAvatar(
+          backgroundImage: AssetImage('assets/image/editprofile.png')),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_state.loguser.name),
+          Text(_state.loguser.login, style: TextStyle(fontSize: 12.0)),
+        ],
+      ),
+      actions: [
+        IconButton(icon: Icon(Icons.login), onPressed: () {})
+      ],
+    );
   }
 }
 

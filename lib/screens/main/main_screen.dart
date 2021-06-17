@@ -66,14 +66,17 @@ class _MainScreenState extends State<MainScreen> {
       onWillPop: () => Future.value(false),
       child: SafeArea(
         child: Scaffold(
-          appBar: Appbar(),
+          drawer: Drawer(),
+          appBar: Appbar(
+            state: this,
+          ),
           body: BodyMain(
             state: this,
           ),
           bottomNavigationBar: Bottom(
             state: this,
           ),
-          drawer: DrawerCustom(
+          endDrawer: DrawerCustom(
             state: this,
           ),
         ),
