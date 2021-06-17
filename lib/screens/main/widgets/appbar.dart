@@ -33,7 +33,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(_state.loguser.name),
-          Text(_state.loguser.login, style: TextStyle(fontSize: 12.0)),
+          Text('${_state.loguser.login} (${_state.loguser.role})', style: TextStyle(fontSize: 12.0)),
         ],
       ),
       actions: [
