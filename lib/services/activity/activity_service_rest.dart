@@ -6,15 +6,14 @@ import 'activity_service.dart';
 class ActivityServiceRest implements ActivityService {
   RestService get rest => dependency();
 
-  // Future<Activity> authenticate({String login, String password}) async {
-  //   String temp = 'users?login=$login&&password=$password';
-  //   final List json = await rest.get(temp);
-  //   if (json == null || json.length == 0) return null;
-  //   print(temp);
-  //   print(json.length);
-  //   final _user = Activity.fromJson(json[0]);
-  //   return _user;
-  // }
+  Future<List<Activity>> getactivity() async {
+    String temp = 'activity';
+    final List json = await rest.get(temp);
+    if (json == null || json.length == 0) return null;
+    print(temp);
+    print(json.length);
+    return json.map((jsonItem) => Activity.fromJson(jsonItem)).toList();
+  }
 
   Future<Activity> createnewactivity({Activity activity}) async {
     final json = await rest.post('activity/', data: activity);

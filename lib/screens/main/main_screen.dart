@@ -46,11 +46,27 @@ class _MainScreenState extends State<MainScreen> {
 
   var _showdrawer = false;
   get showdrawer => _showdrawer;
-  set showdrawer(value) => setState(() => _showdrawer = value);
+  set showdrawer(value) => setState(() {
+        _showdrawer = value;
+        _showActivity = false;
+        _editProfile = false;
+      });
+
+  var _showActivity = true;
+  get showActivity => _showActivity;
+  set showActivity(value) => setState(() {
+        _showActivity = value;
+        _editProfile = false;
+        _showdrawer = false;
+      });
 
   var _editProfile = false;
   get editProfile => _editProfile;
-  set editProfile(value) => setState(() => _editProfile = value);
+  set editProfile(value) => setState(() {
+        _editProfile = value;
+        _showActivity = false;
+        _showdrawer = false;
+      });
 
   dynamic route() {
     if (editProfile) {

@@ -6,6 +6,7 @@ import '../../../models/user.dart';
 import '../../view.dart';
 import '../main_viewmodel.dart';
 import 'bodywidgets/bodyeditprofile.dart';
+import 'bodywidgets/bodyactivity.dart';
 import 'bodywidgets/more.dart';
 
 class BodyMain extends StatelessWidget {
@@ -42,6 +43,7 @@ class BodyMain extends StatelessWidget {
                     child: Column(
                       children: [
                         if (_state.editProfile) Bodyeditprofile(state: _state),
+                        if (_state.showActivity) BodyActivity(state: _state),
                       ],
                     ),
                   ),

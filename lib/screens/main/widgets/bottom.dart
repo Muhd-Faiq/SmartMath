@@ -130,7 +130,7 @@ class Bottom extends StatelessWidget implements PreferredSizeWidget {
                 iconSize: 40.0,
                 color: Colors.black,
                 icon: Icon(Icons.notifications_rounded),
-                onPressed: () {},
+                onPressed: () => _state.showActivity = true,
               ),
               IconButton(
                 iconSize: 40.0,

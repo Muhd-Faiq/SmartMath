@@ -1,6 +1,9 @@
+import 'package:intl/intl.dart';
 import '../../app/dependencies.dart';
 import '../../services/auth/auth_service.dart';
+import '../../services/activity/activity_service.dart';
 import '../../models/user.dart';
+import '../../models/activity.dart';
 import '../viewmodel.dart';
 
 class MainViewmodel extends Viewmodel {
@@ -8,7 +11,11 @@ class MainViewmodel extends Viewmodel {
     _user = tempuser;
   }
   AuthService get _service => dependency();
+  ActivityService get _activityservice => dependency();
   User _user = User();
+  Activity _activity = Activity();
+  List<Activity> _listactivity;
+  Future<List<Activity>> _futurelistactivity;
   // User _tempuser;
 
   bool _showPassword = false;
@@ -16,6 +23,15 @@ class MainViewmodel extends Viewmodel {
 
   get user => _user;
   set user(value) => _user = value;
+
+  get activity => _activity;
+  set activity(value) => _activity = value;
+
+  get listactivity => _listactivity;
+  set listactivity(value) => _listactivity = value;
+
+  get futurelistactivity => _futurelistactivity;
+  set futurelistactivity(value) => _futurelistactivity = value;
 
   get showPassword => _showPassword;
   set showPassword(value) {
@@ -78,5 +94,30 @@ class MainViewmodel extends Viewmodel {
     if (result == null) _showErrorMessage = true;
     turnIdle();
     return _user;
+  }
+
+//   todayDate(List<Activity> act) {
+//     List products = [];
+
+// //adding into the new list from raw API list
+//     for (final item in act) {
+//       var parsedDate = DateTime.parse(item.date);
+
+//       products.add(tmpArray);
+//     }
+//   }
+
+  Future<List<Activity>> getactivity() async {
+    turnBusy();
+    final _activity = await _activityservice.getactivity();
+    if (_activity == null) return null;
+    turnIdle();
+    // todayDate(_activity);
+    _activity.sort((a, b) {
+      var adate = a.date; //before -> var adate = a.expiry;
+      var bdate = b.date; //var bdate = b.expiry;
+      return adate.compareTo(bdate);
+    });
+    return _activity;
   }
 }
