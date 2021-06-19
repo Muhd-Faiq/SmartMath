@@ -55,6 +55,13 @@ class AddactivityViewmodel extends Viewmodel {
     turnIdle();
   }
 
+  get tutorialdate => _activity.tutorialdate;
+  set tutorialdate(value) {
+    turnBusy();
+    _activity.tutorialdate = value;
+    turnIdle();
+  }
+
   Future uploadFile(String destination, File file) {
     try {
       final ref = FirebaseStorage.instance.ref(destination);
@@ -71,10 +78,12 @@ class AddactivityViewmodel extends Viewmodel {
       activity: Activity(
         title: activity.title,
         description: activity.description,
-        file: activity.file,
+        file: activity.category == 'Tutorial' ? activity.file : null,
         category: activity.category,
         uid: user.id,
-        date: DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now()),
+        date: DateFormat("yyyy-MM-dd hh:mm aa").format(DateTime.now()),
+        tutorialdate:
+            activity.category == 'Submission' ? activity.tutorialdate : null,
       ),
     );
     // if (result == null) _showErrorMessage = true;

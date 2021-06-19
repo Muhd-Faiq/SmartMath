@@ -9,6 +9,7 @@ class Activity {
   String _category;
   dynamic _uid;
   String _date;
+  String _tutorialdate;
 
   // ignore: unnecessary_getters_setters
   get id => _id;
@@ -33,6 +34,9 @@ class Activity {
   get date => _date;
   set date(value) => _date = value;
 
+  get tutorialdate => _tutorialdate;
+  set tutorialdate(value) => _tutorialdate = value;
+
   Activity(
       {dynamic id,
       String title = '',
@@ -40,14 +44,16 @@ class Activity {
       String file = '',
       String category = 'Tutorial',
       dynamic uid,
-      String date})
+      String date,
+      String tutorialdate})
       : _id = id,
         _title = title,
         _description = description,
         _file = file,
         _category = category,
         _uid = uid,
-        _date = date;
+        _date = date,
+        _tutorialdate = tutorialdate;
 
   Activity.copy(Activity from)
       : this(
@@ -57,7 +63,8 @@ class Activity {
             file: from.file,
             category: from.category,
             uid: from.uid,
-            date: from.date);
+            date: from.date,
+            tutorialdate: from.tutorialdate);
 
   Activity.fromJson(Map<String, dynamic> json)
       : this(
@@ -67,7 +74,8 @@ class Activity {
             file: json['file'],
             category: json['category'],
             uid: json['uid'],
-            date: json['date']);
+            date: json['date'],
+            tutorialdate: json['tutorialdate']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -76,6 +84,7 @@ class Activity {
         'file': file,
         'category': category,
         'uid': uid,
-        'date': date
+        'date': date,
+        'tutorialdate': tutorialdate
       };
 }

@@ -7,6 +7,8 @@ import '../../view.dart';
 import '../main_viewmodel.dart';
 import 'bodywidgets/bodyeditprofile.dart';
 import 'bodywidgets/bodyactivity.dart';
+import 'bodywidgets/bodystudentsubmission.dart';
+import 'bodywidgets/bodysubmission.dart';
 import 'bodywidgets/more.dart';
 
 class BodyMain extends StatelessWidget {
@@ -44,6 +46,10 @@ class BodyMain extends StatelessWidget {
                       children: [
                         if (_state.editProfile) Bodyeditprofile(state: _state),
                         if (_state.showActivity) BodyActivity(state: _state),
+                        if (_state.showSubmission)
+                          BodySubmission(state: _state),
+                        if (_state.showStudentsubmission)
+                          Bodystudentsubmission(state: _state),
                       ],
                     ),
                   ),

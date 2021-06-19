@@ -2,24 +2,16 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:smartmath/models/activity.dart';
 import 'package:smartmath/models/user.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 
 import '../../../view.dart';
 import '../../main_viewmodel.dart';
 
-class BodyActivity extends StatefulWidget {
-  BodyActivity({state}) : _state = state;
+class Bodystudentsubmission extends StatelessWidget {
+  Bodystudentsubmission({state}) : _state = state;
   final _state;
 
-  @override
-  _BodyActivityState createState() => _BodyActivityState();
-}
-
-class _BodyActivityState extends State<BodyActivity> {
   // void _onUpdate(BuildContext context, MainViewmodel viewmodel) async {
   //   final User _user = await viewmodel.updateUser();
 
@@ -37,45 +29,26 @@ class _BodyActivityState extends State<BodyActivity> {
 
   int progress = 0;
 
-  ReceivePort _receivePort = ReceivePort();
+  String getDate(String date) {
+    if (date.substring(12, 13) == ':')
+      return date.substring(10, 15) + 'AM';
+    else if (date.substring(11, 13) == '12')
+      return date.substring(10, 16) + 'PM';
 
-  static downloadingCallback(id, status, progress) {
-    ///Looking up for a send port
-    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
-
-    ///ssending the data
-    sendPort.send([id, status, progress]);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    ///register a send port for the other isolates
-    IsolateNameServer.registerPortWithName(
-        _receivePort.sendPort, "downloading");
-
-    ///Listening for the data is comming other isolataes
-    _receivePort.listen((message) {
-      setState(() {
-        progress = message[2];
-      });
-
-      print(progress);
-    });
-
-    FlutterDownloader.registerCallback(downloadingCallback);
+    return (int.parse(date.substring(11, 13)) - 12).toString() +
+        date.substring(13, 16) +
+        'PM';
   }
 
   @override
   Widget build(BuildContext context) {
     Future<List<Activity>> _futurelistactivity =
-        MainViewmodel(User.copy(widget._state.loguser)).getactivity();
+        MainViewmodel(User.copy(_state.loguser)).getactivity();
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: View(
-        viewmodel: MainViewmodel(User.copy(widget._state.loguser)),
+        viewmodel: MainViewmodel(User.copy(_state.loguser)),
         builder: (context, viewmodel, _) => FutureBuilder<List<Activity>>(
           future: _futurelistactivity,
           builder: (context, snapshot) {
@@ -89,7 +62,8 @@ class _BodyActivityState extends State<BodyActivity> {
                   separatorBuilder: (context, index) => Container(),
                   itemBuilder: (context, index) => Column(
                     children: [
-                      if (viewmodel.listactivity[index].category == 'Tutorial')
+                      if (viewmodel.listactivity[index].category ==
+                          'Submission')
                         Container(
                           margin: const EdgeInsets.all(15.0),
                           padding: const EdgeInsets.only(
@@ -108,6 +82,31 @@ class _BodyActivityState extends State<BodyActivity> {
                                 children: [
                                   Text(
                                     'Title: ${viewmodel.listactivity[index].title}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Due Date: ' +
+                                        viewmodel
+                                            .listactivity[index].tutorialdate
+                                            .substring(8, 10) +
+                                        '/' +
+                                        viewmodel
+                                            .listactivity[index].tutorialdate
+                                            .substring(5, 7) +
+                                        '/' +
+                                        viewmodel
+                                            .listactivity[index].tutorialdate
+                                            .substring(0, 4),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
@@ -145,7 +144,7 @@ class _BodyActivityState extends State<BodyActivity> {
                               SizedBox(
                                 width: double.infinity,
                                 child: MaterialButton(
-                                  color: Colors.white,
+                                  color: Colors.orange,
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
@@ -154,39 +153,23 @@ class _BodyActivityState extends State<BodyActivity> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
                                         Text(
-                                          'DOWNLOAD FILE',
-                                          style: TextStyle(color: Colors.black),
+                                          'View Submission',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: 10,
                                         ),
                                         Icon(
                                           Icons.arrow_forward,
-                                          color: Colors.black,
+                                          color: Colors.white,
                                         )
                                       ],
                                     ),
                                   ),
-                                  onPressed: () async {
-                                    final status =
-                                        await Permission.storage.request();
-                                    if (status.isGranted) {
-                                      final externalDirectory =
-                                          await getExternalStorageDirectory();
-                                      final id =
-                                          await FlutterDownloader.enqueue(
-                                        url: viewmodel.listactivity[index].file,
-                                        savedDir: externalDirectory.path,
-                                        fileName: 'download',
-                                        showNotification:
-                                            true, // show download progress in status bar (for Android)
-                                        openFileFromNotification:
-                                            true, // click on notification to open downloaded file (for Android)
-                                      );
-                                    } else {
-                                      print('permission denied');
-                                    }
-                                  },
+                                  onPressed: () => _state.Submission = true,
                                 ),
                               ),
                               SizedBox(
@@ -195,13 +178,15 @@ class _BodyActivityState extends State<BodyActivity> {
                               Row(
                                 children: [
                                   Text(
-                                    viewmodel.listactivity[index].date
+                                    viewmodel.listactivity[index].tutorialdate
                                             .substring(8, 10) +
                                         '/' +
-                                        viewmodel.listactivity[index].date
+                                        viewmodel
+                                            .listactivity[index].tutorialdate
                                             .substring(5, 7) +
                                         '/' +
-                                        viewmodel.listactivity[index].date
+                                        viewmodel
+                                            .listactivity[index].tutorialdate
                                             .substring(0, 4),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -212,8 +197,8 @@ class _BodyActivityState extends State<BodyActivity> {
                                     width: 10,
                                   ),
                                   Text(
-                                    viewmodel.listactivity[index].date
-                                        .substring(10, 19),
+                                    getDate(viewmodel
+                                        .listactivity[index].tutorialdate),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,

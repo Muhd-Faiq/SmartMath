@@ -53,6 +53,7 @@ class MenuWidget extends StatelessWidget {
                               Navigator.pushNamed(context, '/addactivity',
                                   arguments: _state.loguser);
                               _state.showdrawer = false;
+                              _state.showActivity = true;
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +94,8 @@ class MenuWidget extends StatelessWidget {
                         ),
                         child: InkWell(
                           splashColor: Colors.green, // splash color
-                          onTap: () {}, // button pressed
+                          onTap: () =>
+                              _state.showSubmission = true, // button pressed
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

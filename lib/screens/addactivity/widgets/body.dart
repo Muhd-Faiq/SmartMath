@@ -7,6 +7,7 @@ import 'package:smartmath/models/activity.dart';
 import 'package:smartmath/models/user.dart';
 import 'package:smartmath/screens/view.dart';
 import 'package:path/path.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 import '../addactivity_viewmodel.dart';
 
@@ -145,33 +146,6 @@ class Body extends StatelessWidget {
                   width: 32,
                 ),
                 Text(
-                  'Choose File',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Custom(
-              context: context,
-              viewmodel: viewmodel,
-            ),
-            //choose file--------------------------------------------------
-            SizedBox(
-              height: 35,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 32,
-                ),
-                Text(
                   'Choose Category',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -205,6 +179,80 @@ class Body extends StatelessWidget {
                     .toList(),
               ),
             ),
+            if (viewmodel.category == 'Tutorial')
+              SizedBox(
+                height: 35,
+              ),
+            if (viewmodel.category == 'Tutorial')
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 32,
+                  ),
+                  Text(
+                    'Choose File',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
+                  ),
+                ],
+              ),
+            SizedBox(
+              height: 15,
+            ),
+            if (viewmodel.category == 'Tutorial')
+              Custom(
+                context: context,
+                viewmodel: viewmodel,
+              ),
+            //choose file--------------------------------------------------
+            if (viewmodel.category == 'Submission')
+              SizedBox(
+                height: 35,
+              ),
+            if (viewmodel.category == 'Submission')
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 32,
+                  ),
+                  Text(
+                    'Choose Date & Time',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
+                  ),
+                ],
+              ),
+            if (viewmodel.category == 'Submission')
+              SizedBox(
+                height: 15,
+              ),
+            if (viewmodel.category == 'Submission')
+              Container(
+                width: 350,
+                child: DateTimePicker(
+                  type: DateTimePickerType.dateTime,
+                  dateMask: 'd MMM, yyyy hh:mm aa',
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2100),
+                  icon: Icon(Icons.event),
+                  dateLabelText: 'Date & Time',
+                  dateHintText: 'Date & Time',
+                  onChanged: (val) => viewmodel.tutorialdate = val,
+                  validator: (val) {
+                    print(val);
+                    return null;
+                  },
+                  onSaved: (val) => print(val),
+                ),
+              ),
             SizedBox(
               height: 50.0,
             ),

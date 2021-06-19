@@ -50,6 +50,7 @@ class _MainScreenState extends State<MainScreen> {
         _showdrawer = value;
         _showActivity = false;
         _editProfile = false;
+        _showSubmission = false;
       });
 
   var _showActivity = true;
@@ -58,6 +59,7 @@ class _MainScreenState extends State<MainScreen> {
         _showActivity = value;
         _editProfile = false;
         _showdrawer = false;
+        _showSubmission = false;
       });
 
   var _editProfile = false;
@@ -66,15 +68,43 @@ class _MainScreenState extends State<MainScreen> {
         _editProfile = value;
         _showActivity = false;
         _showdrawer = false;
+        _showSubmission = false;
       });
 
-  dynamic route() {
-    if (editProfile) {
-      BodyMain(
-        state: this,
-      );
-    }
-  }
+  var _showSubmission = false;
+  get showSubmission => _showSubmission;
+  set showSubmission(value) => setState(() {
+        _showSubmission = value;
+        _editProfile = false;
+        _showdrawer = false;
+        _showActivity = false;
+      });
+
+  var _showTeachersubmission = false;
+  get showTeachersubmission => _showTeachersubmission;
+  set showTeachersubmission(value) => setState(() {
+        _showTeachersubmission = value;
+        _editProfile = false;
+        _showdrawer = false;
+        _showActivity = false;
+      });
+
+  var _showStudentsubmission = false;
+  get showStudentsubmission => _showStudentsubmission;
+  set showStudentsubmission(value) => setState(() {
+        _showStudentsubmission = value;
+        _editProfile = false;
+        _showdrawer = false;
+        _showActivity = false;
+      });
+
+  // dynamic route() {
+  //   if (editProfile) {
+  //     BodyMain(
+  //       state: this,
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
