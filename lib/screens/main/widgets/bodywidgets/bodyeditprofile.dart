@@ -14,6 +14,7 @@ class Bodyeditprofile extends StatelessWidget {
     // if (_user != null) Navigator.pop(context, _user);
     if (_user != null) {
       _state.editProfile = false;
+      _state.showActivity = true;
       _state.loguser = _user;
       // Navigator.pushNamed(context, '/main');
     }
@@ -21,13 +22,14 @@ class Bodyeditprofile extends StatelessWidget {
 
   void _onCancel(BuildContext context, MainViewmodel viewmodel) {
     _state.editProfile = false;
+    _state.showActivity = true;
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: View(
-        viewmodel: MainViewmodel(User.copy(_state.loguser)),
+        viewmodel: MainViewmodel(),
         builder: (context, viewmodel, _) => Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -57,8 +59,8 @@ class Bodyeditprofile extends StatelessWidget {
                   width: 350,
                   child: _buildTextLisTile(
                     label: 'Name',
-                    value: viewmodel.username,
-                    onChanged: (value) => viewmodel.username = value,
+                    value: viewmodel.usercopy.login,
+                    onChanged: (value) => viewmodel.usernamecopy = value,
                   ),
                 ),
                 SizedBox(
@@ -68,8 +70,8 @@ class Bodyeditprofile extends StatelessWidget {
                   width: 350,
                   child: _buildTextLisTile(
                     label: 'Password',
-                    value: viewmodel.password,
-                    onChanged: (value) => viewmodel.password = value,
+                    value: viewmodel.usercopy.password,
+                    onChanged: (value) => viewmodel.passwordcopy = value,
                   ),
                 ),
                 SizedBox(
@@ -79,8 +81,8 @@ class Bodyeditprofile extends StatelessWidget {
                   width: 350,
                   child: _buildTextLisTile(
                     label: 'Name',
-                    value: viewmodel.name,
-                    onChanged: (value) => viewmodel.name = value,
+                    value: viewmodel.usercopy.name,
+                    onChanged: (value) => viewmodel.namecopy = value,
                   ),
                 ),
                 // if (viewmodel.showErrorMessage)

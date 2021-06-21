@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartmath/screens/main/main_viewmodel.dart';
 
 class MenuWidget extends StatelessWidget {
   MenuWidget({state}) : _state = state;
@@ -14,7 +15,7 @@ class MenuWidget extends StatelessWidget {
         topLeft: Radius.circular(20.0),
       ),
       child: Container(
-        color: Colors.deepOrangeAccent,
+        color: Colors.orange,
         width: width,
         height: height / 3,
         child: Padding(
@@ -35,7 +36,7 @@ class MenuWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  if (_state.loguser.role == 'Teacher')
+                  if (MainViewmodel().user.role == 'Teacher')
                     Column(
                       children: [
                         Container(
@@ -177,8 +178,7 @@ class MenuWidget extends StatelessWidget {
                           splashColor: Colors.green, // splash color
                           onTap: () {
                             _state.editProfile = true;
-                            _state.showdrawer = false;
-                          }, // button pressed
+                          },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

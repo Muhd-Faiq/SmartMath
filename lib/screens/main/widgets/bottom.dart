@@ -101,22 +101,10 @@ class Bottom extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(50);
 
-  void _onLogin(BuildContext context, MainViewmodel viewmodel) async {
-    final User _user = await viewmodel.authenticate();
-
-    // if (_user != null) Navigator.pop(context, _user);
-    if (_user != null) Navigator.pushNamed(context, '/register');
-  }
-
-  void _onCancel(BuildContext context, MainViewmodel viewmodel) {
-    viewmodel.showErrorMessage = false;
-    Navigator.pop(context, null);
-  }
-
   @override
   Widget build(BuildContext context) {
     return View(
-      viewmodel: MainViewmodel(User.copy(_state.loguser)),
+      viewmodel: MainViewmodel(),
       builder: (context, viewmodel, _) => BottomAppBar(
         shape: CircularNotchedRectangle(),
         color: Colors.orange,

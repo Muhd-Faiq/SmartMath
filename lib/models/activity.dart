@@ -28,7 +28,9 @@ class Activity {
   get category => _category;
   set category(value) => _category = value;
 
+  // ignore: unnecessary_getters_setters
   get uid => _uid;
+  // ignore: unnecessary_getters_setters
   set uid(value) => _uid = value;
 
   get date => _date;

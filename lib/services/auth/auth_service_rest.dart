@@ -16,6 +16,16 @@ class AuthServiceRest implements AuthService {
     return _user;
   }
 
+  Future<List<User>> getalluser({String role}) async {
+    String temp = 'users?role=$role';
+    final List json = await rest.get(temp);
+    if (json == null || json.length == 0) return null;
+    print(temp);
+    print(json.length);
+    final _user = json.map((e) => User.fromJson(e)).toList();
+    return _user;
+  }
+
   Future<User> register({User user}) async {
     final json = await rest.post('users/', data: user);
     if (json == null || json.length == 0) return null;

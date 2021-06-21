@@ -2,9 +2,11 @@ import '../../app/dependencies.dart';
 import '../../services/auth/auth_service.dart';
 import '../../models/user.dart';
 import '../viewmodel.dart';
+import '../../services/userviewmodel.dart';
 
 class LoginViewmodel extends Viewmodel {
   AuthService get _service => dependency();
+  UserViewmodel get _userdependency => dependency();
   User _user = User();
   bool _showPassword = false;
   bool _showErrorMessage = false;
@@ -48,6 +50,7 @@ class LoginViewmodel extends Viewmodel {
         await _service.authenticate(login: username, password: password);
     if (_user == null) _showErrorMessage = true;
     turnIdle();
+    _userdependency.user = _user;
     return _user;
   }
 }

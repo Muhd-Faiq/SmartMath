@@ -42,18 +42,18 @@ class BodySubmission extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<List<Activity>> _futurelistactivity =
-        MainViewmodel(User.copy(_state.loguser)).getactivity();
+    Future<List<Activity>> _futurelistactivity = MainViewmodel().getactivity();
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: View(
-        viewmodel: MainViewmodel(User.copy(_state.loguser)),
+        viewmodel: MainViewmodel(),
         builder: (context, viewmodel, _) => FutureBuilder<List<Activity>>(
           future: _futurelistactivity,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               viewmodel.listactivity = snapshot.data;
+              viewmodel.submissiontemp = null;
               return Container(
                 margin: const EdgeInsets.only(bottom: 150.0),
                 child: ListView.separated(
@@ -145,67 +145,71 @@ class BodySubmission extends StatelessWidget {
                                 SizedBox(
                                   width: double.infinity,
                                   child: MaterialButton(
-                                    color: Colors.orange,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Text(
-                                            'Submit',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
+                                      color: Colors.orange,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Text(
+                                              'Submit',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Icon(
-                                            Icons.arrow_forward,
-                                            color: Colors.white,
-                                          )
-                                        ],
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Icon(
+                                              Icons.arrow_forward,
+                                              color: Colors.white,
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () =>
-                                        _state.showTeachersubmission = true,
-                                  ),
+                                      onPressed: () {
+                                        viewmodel.activity =
+                                            viewmodel.listactivity[index];
+                                        _state.showStudentsubmission = true;
+                                      }),
                                 ),
                               if (viewmodel.user.role == 'Teacher')
                                 SizedBox(
                                   width: double.infinity,
                                   child: MaterialButton(
-                                    color: Colors.orange,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Text(
-                                            'View Submission',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
+                                      color: Colors.orange,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Text(
+                                              'View Submission',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Icon(
-                                            Icons.arrow_forward,
-                                            color: Colors.white,
-                                          )
-                                        ],
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Icon(
+                                              Icons.arrow_forward,
+                                              color: Colors.white,
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () =>
-                                        _state.showStudentsubmission = true,
-                                  ),
+                                      onPressed: () {
+                                        viewmodel.activity =
+                                            viewmodel.listactivity[index];
+                                        _state.showTeachersubmission = true;
+                                      }),
                                 ),
                               SizedBox(
                                 height: 20,
@@ -249,7 +253,9 @@ class BodySubmission extends StatelessWidget {
                 ),
               );
             } else {
-              return Container();
+              return Container(
+                color: Colors.amber,
+              );
             }
           },
         ),

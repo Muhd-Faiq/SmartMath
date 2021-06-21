@@ -10,11 +10,13 @@ const app = express();
 const usersRouter = require('./api/controllers/users_controller')
 const countersRouter = require('./api/controllers/counters_controller')
 const activityRouter = require('./api/controllers/activity_controller')
+const submissionRouter = require('./api/controllers/submission_controller')
 
 app.use(express.json())
 app.use('/users', usersRouter)
 app.use('/counters', countersRouter)
 app.use('/activity', activityRouter)
+app.use('/submission', submissionRouter)
 
 
 // To handle "Function Timeout" exception
@@ -25,3 +27,4 @@ exports.functionsTimeOut = functions.runWith({
 exports.setupdb = functions.https.onRequest(require('./tools/setup_database'))
 exports.setupauth = functions.https.onRequest(require('./tools/setup_authentications'))
 exports.api = functions.https.onRequest(app)
+

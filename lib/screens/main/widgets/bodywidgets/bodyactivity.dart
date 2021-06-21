@@ -69,13 +69,12 @@ class _BodyActivityState extends State<BodyActivity> {
 
   @override
   Widget build(BuildContext context) {
-    Future<List<Activity>> _futurelistactivity =
-        MainViewmodel(User.copy(widget._state.loguser)).getactivity();
+    Future<List<Activity>> _futurelistactivity = MainViewmodel().getactivity();
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: View(
-        viewmodel: MainViewmodel(User.copy(widget._state.loguser)),
+        viewmodel: MainViewmodel(),
         builder: (context, viewmodel, _) => FutureBuilder<List<Activity>>(
           future: _futurelistactivity,
           builder: (context, snapshot) {
