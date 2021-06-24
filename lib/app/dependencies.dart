@@ -8,6 +8,8 @@ import '../services/submissionviewmodel.dart';
 import '../services/studentviewmodel.dart';
 import '../services/auth/auth_service.dart';
 import '../services/auth/auth_service_rest.dart';
+import '../services/chat/chat_service.dart';
+import '../services/chat/chat_service_rest.dart';
 import '../services/activity/activity_service.dart';
 import '../services/activity/activity_service_rest.dart';
 import '../services/submission/submission_service_rest.dart';
@@ -28,6 +30,7 @@ void init() {
       .registerLazySingleton<ActivityService>(() => ActivityServiceRest());
   dependency
       .registerLazySingleton<SubmissionService>(() => SubmissionServiceRest());
+  dependency.registerLazySingleton<ChatService>(() => ChatServiceRest());
   // dependency.registerLazySingleton<AuthService>(() => AuthServiceMock());
 
   // Viewmodels

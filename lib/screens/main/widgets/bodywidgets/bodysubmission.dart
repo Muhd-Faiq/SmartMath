@@ -253,9 +253,7 @@ class BodySubmission extends StatelessWidget {
                 ),
               );
             } else {
-              return Container(
-                color: Colors.amber,
-              );
+              return Container();
             }
           },
         ),

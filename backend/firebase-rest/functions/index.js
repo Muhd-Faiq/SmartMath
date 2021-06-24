@@ -11,12 +11,14 @@ const usersRouter = require('./api/controllers/users_controller')
 const countersRouter = require('./api/controllers/counters_controller')
 const activityRouter = require('./api/controllers/activity_controller')
 const submissionRouter = require('./api/controllers/submission_controller')
+const chatRouter = require('./api/controllers/chat_controller')
 
 app.use(express.json())
 app.use('/users', usersRouter)
 app.use('/counters', countersRouter)
 app.use('/activity', activityRouter)
 app.use('/submission', submissionRouter)
+app.use('/chat', chatRouter)
 
 
 // To handle "Function Timeout" exception

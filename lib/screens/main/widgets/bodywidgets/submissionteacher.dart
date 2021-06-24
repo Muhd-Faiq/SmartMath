@@ -182,8 +182,8 @@ class Teachersubmission extends StatelessWidget {
                     Container(
                       width: 350,
                       child: TextField(
-                        maxLines: 3,
-                        minLines: 1,
+                        maxLines: 5,
+                        minLines: 3,
                         decoration: InputDecoration(
                           hintText: 'Comment',
                           border: OutlineInputBorder(),
