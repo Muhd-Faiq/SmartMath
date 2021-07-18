@@ -21,16 +21,13 @@ class Teachersubmission extends StatelessWidget {
     final Submission _submission2 = await viewmodel.updateCommentSubmission();
     if (_submission2 != null) {
       _state.showTeachersubmission = true;
-      print('no');
     } else {
       _state.showSubmission = true;
-      print('yes');
     }
   }
 
   void _onCancel(BuildContext context, MainViewmodel viewmodel) {
     _state.showSubmission = true;
-    print('yes');
   }
 
   @override
@@ -140,7 +137,6 @@ class Teachersubmission extends StatelessWidget {
                             if (status.isGranted) {
                               final externalDirectory =
                                   await getExternalStorageDirectory();
-                              print(viewmodel.submissiontemp.filesubmit);
                               final id = await FlutterDownloader.enqueue(
                                 url: viewmodel.submissiontemp.filesubmit,
                                 savedDir: externalDirectory.path,

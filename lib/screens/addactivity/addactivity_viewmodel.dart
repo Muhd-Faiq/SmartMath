@@ -67,7 +67,6 @@ class AddactivityViewmodel extends Viewmodel {
       final ref = FirebaseStorage.instance.ref(destination);
       return ref.putFile(file);
     } on FirebaseException catch (e) {
-      print('e=$e');
       return null;
     }
   }

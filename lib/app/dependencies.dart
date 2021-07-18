@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../services/rest.dart';
 import '../services/userviewmodel.dart';
 import '../services/listuserviewmodel.dart';
+import '../services/listsubmissionviewmodel.dart';
 import '../services/activityviewmodel.dart';
 import '../services/submissionviewmodel.dart';
 import '../services/studentviewmodel.dart';
@@ -39,4 +40,5 @@ void init() {
   dependency.registerLazySingleton(() => ListUserViewmodel());
   dependency.registerLazySingleton(() => ActivityViewmodel());
   dependency.registerLazySingleton(() => SubmissionViewmodel());
+  dependency.registerLazySingleton(() => ListSubmissionViewmodel());
 }

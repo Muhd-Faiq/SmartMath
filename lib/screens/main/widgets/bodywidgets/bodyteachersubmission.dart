@@ -16,26 +16,24 @@ import '../../main_viewmodel.dart';
 class Bodyteachersubmission extends StatelessWidget {
   Bodyteachersubmission({state}) : _state = state;
   final _state;
-
+  var k = 0;
   bool getCheck(List<Submission> list, String userid) {
     int i = 0;
+    int j = 0;
+    if (list == null) return false;
     list.forEach((value) {
       if (value.uid == userid) {
         i = 1;
+        k = j;
       }
+      j = j + 1;
     });
     if (i == 1) return true;
     return false;
   }
 
   bool getCheck2(List<Submission> list) {
-    int i = 0;
-    list.forEach((value) {
-      if (value.comment != null) {
-        i = 1;
-      }
-    });
-    if (i == 1) return true;
+    if (list[k].comment != null) return true;
     return false;
   }
 
@@ -60,14 +58,14 @@ class Bodyteachersubmission extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: View(
-        viewmodel: MainViewmodel(),
+        viewmodel: MainViewmodel.p('yes'),
         builder: (context, viewmodel, _) => FutureBuilder<List<Submission>>(
           future: _futurelistactivity,
           builder: (context, snapshot) {
             viewmodel.listsubmission = snapshot.data;
             viewmodel.student = null;
             viewmodel.submissiontemp = null;
-            print('lengtgh==${viewmodel.listuser.length}');
+
             return Container(
               margin: const EdgeInsets.only(bottom: 110.0),
               child: Container(
@@ -99,9 +97,9 @@ class Bodyteachersubmission extends StatelessWidget {
                           //         viewmodel.listuser[index].id) ==
                           //     true)
                           Icon(
-                            getCheck(viewmodel.listsubmission,
+                            getCheck(viewmodel.templistsubmission,
                                     viewmodel.listuser[index].id)
-                                ? getCheck2(viewmodel.listsubmission)
+                                ? getCheck2(viewmodel.templistsubmission)
                                     ? Icons.done_all
                                     : Icons.done
                                 : Icons.close,
@@ -111,9 +109,9 @@ class Bodyteachersubmission extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      if (getCheck(viewmodel.listsubmission,
+                      if (getCheck(viewmodel.templistsubmission,
                           viewmodel.listuser[index].id)) {
-                        getCheck3(viewmodel.listsubmission,
+                        getCheck3(viewmodel.templistsubmission,
                             viewmodel.listuser[index].id, viewmodel);
                         viewmodel.student = viewmodel.listuser[index];
                         _state.showTeachersubmission2 = true;

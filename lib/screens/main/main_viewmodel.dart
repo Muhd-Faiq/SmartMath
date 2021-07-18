@@ -1,6 +1,8 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:smartmath/services/activityviewmodel.dart';
+import 'package:smartmath/services/listsubmissionviewmodel.dart';
 import 'package:smartmath/services/listuserviewmodel.dart';
 import 'package:smartmath/services/studentviewmodel.dart';
 import 'package:smartmath/services/userviewmodel.dart';
@@ -15,11 +17,22 @@ import '../../models/submission.dart';
 import '../viewmodel.dart';
 import 'dart:io';
 
+import 'package:flutter/scheduler.dart';
+
 class MainViewmodel extends Viewmodel {
   User _usercopy;
   MainViewmodel() {
     _usercopy = User.copy(_userdependency.user);
+    // if (_userdependency.user.role == 'Teacher') getallstudent();
   }
+  MainViewmodel.p(String y) {
+    _usercopy = User.copy(_userdependency.user);
+    if (_userdependency.user.role == 'Teacher') {
+      getallstudent();
+      getActvitySubmission();
+    }
+  }
+
   AuthService get _service => dependency();
   UserViewmodel get _userdependency => dependency();
   StudentViewmodel get _studentdependency => dependency();
@@ -28,6 +41,7 @@ class MainViewmodel extends Viewmodel {
   ActivityService get _activityservice => dependency();
   SubmissionService get _submissionservice => dependency();
   SubmissionViewmodel get _submissiondependency => dependency();
+  ListSubmissionViewmodel get _listsubmissiondependency => dependency();
   List<User> _listuser;
   Submission _submission = Submission();
   Activity _activity = Activity();
@@ -62,6 +76,10 @@ class MainViewmodel extends Viewmodel {
 
   get listsubmission => _listsubmission;
   set listsubmission(value) => _listsubmission = value;
+
+  get templistsubmission => _listsubmissiondependency.listsubmission;
+  set templistsubmission(value) =>
+      _listsubmissiondependency.listsubmission = value;
 
   get futurelistactivity => _futurelistactivity;
   set futurelistactivity(value) => _futurelistactivity = value;
@@ -126,7 +144,6 @@ class MainViewmodel extends Viewmodel {
   }
 
   Future<List<Activity>> getactivity() async {
-    print('DEPENDENCY==${_userdependency.user.login}');
     turnBusy();
     final _activity = await _activityservice.getactivity();
     if (_activity == null) return null;
@@ -158,7 +175,6 @@ class MainViewmodel extends Viewmodel {
       final ref = FirebaseStorage.instance.ref(destination);
       return ref.putFile(file);
     } on FirebaseException catch (e) {
-      print('e=$e');
       return null;
     }
   }
@@ -202,7 +218,6 @@ class MainViewmodel extends Viewmodel {
 
   Future<Submission> updateCommentSubmission() async {
     turnBusy();
-    print('lol==$commenttemp');
     final result = await _submissionservice.updateSubmission(
       submission: Submission(
         comment: commenttemp,
@@ -225,7 +240,6 @@ class MainViewmodel extends Viewmodel {
     if (_sub == null) return null;
     turnIdle();
     submissiontemp = _sub;
-    print('submission ${submissiontemp.aid}');
     return _sub;
   }
 
@@ -235,9 +249,16 @@ class MainViewmodel extends Viewmodel {
         await _submissionservice.getActvitySubmission(aid: activity.id);
     if (_sub == null) return null;
     turnIdle();
-    // print('submission ${submissiontemp.aid}');
-    listsubmission = _sub;
+    _listsubmissiondependency.listsubmission = _sub;
     return _sub;
+  }
+
+  void getallstudent2() {
+    turnBusy();
+    final _user = _service.getalluser(role: 'Student');
+    if (_user == null) print('null');
+    turnIdle();
+    _listuserdependency.listuser = _user;
   }
 
   Future<List<User>> getallstudent() async {

@@ -10,8 +10,6 @@ class ActivityServiceRest implements ActivityService {
     String temp = 'activity';
     final List json = await rest.get(temp);
     if (json == null || json.length == 0) return null;
-    print(temp);
-    print(json.length);
     return json.map((jsonItem) => Activity.fromJson(jsonItem)).toList();
   }
 
@@ -22,13 +20,4 @@ class ActivityServiceRest implements ActivityService {
     final _user = Activity.fromJson(json);
     return _user;
   }
-
-  // Future<User> updateUser({User user}) async {
-  //   print('id: ${user.id}');
-  //   final json = await rest.patch('users/${user.id}', data: user);
-  //   if (json == null || json.length == 0) return null;
-
-  //   final _user = User.fromJson(json);
-  //   return _user;
-  // }
 }

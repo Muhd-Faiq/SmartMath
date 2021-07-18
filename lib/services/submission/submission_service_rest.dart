@@ -10,8 +10,6 @@ class SubmissionServiceRest implements SubmissionService {
     String temp = 'submission?aid=$aid&&uid=$uid';
     final List json = await rest.get(temp);
     if (json == null || json.length == 0) return null;
-    print(temp);
-    print(json.length);
     final _submission = Submission.fromJson(json[0]);
     return _submission;
   }
@@ -20,8 +18,6 @@ class SubmissionServiceRest implements SubmissionService {
     String temp = 'submission?aid=$aid';
     final List json = await rest.get(temp);
     if (json == null || json.length == 0) return null;
-    print(temp);
-    print(json.length);
     final _submission = json.map((e) => Submission.fromJson(e)).toList();
     return _submission;
   }
@@ -35,7 +31,6 @@ class SubmissionServiceRest implements SubmissionService {
   }
 
   Future<Submission> updateSubmission({Submission submission}) async {
-    print('id: ${submission.id}');
     final json =
         await rest.patch('submission/${submission.id}', data: submission);
     if (json == null || json.length == 0) return null;

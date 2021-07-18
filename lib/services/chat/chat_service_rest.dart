@@ -10,8 +10,6 @@ class ChatServiceRest implements ChatService {
     String temp = 'chat';
     final List json = await rest.get(temp);
     if (json == null || json.length == 0) return null;
-    print(temp);
-    print(json.length);
     return json.map((jsonItem) => Chat.fromJson(jsonItem)).toList();
   }
 

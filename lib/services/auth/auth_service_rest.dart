@@ -10,8 +10,6 @@ class AuthServiceRest implements AuthService {
     String temp = 'users?login=$login&&password=$password';
     final List json = await rest.get(temp);
     if (json == null || json.length == 0) return null;
-    print(temp);
-    print(json.length);
     final _user = User.fromJson(json[0]);
     return _user;
   }
@@ -20,8 +18,6 @@ class AuthServiceRest implements AuthService {
     String temp = 'users?role=$role';
     final List json = await rest.get(temp);
     if (json == null || json.length == 0) return null;
-    print(temp);
-    print(json.length);
     final _user = json.map((e) => User.fromJson(e)).toList();
     return _user;
   }
@@ -35,7 +31,6 @@ class AuthServiceRest implements AuthService {
   }
 
   Future<User> updateUser({User user}) async {
-    print('id: ${user.id}');
     final json = await rest.patch('users/${user.id}', data: user);
     if (json == null || json.length == 0) return null;
 
